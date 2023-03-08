@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'std','middleware' => 'auth'],function (){
+    Route::get('/','StdController@index')->name('std.index');
+    Route::get('index','StdController@index')->name('std.index');
+    Route::get('create','StdController@create')->name('std.create');
+});
