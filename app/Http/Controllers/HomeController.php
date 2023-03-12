@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $earnings = [];
+        $expenses = [];
+        $profit = [];
+
         return view('home');
     }
 }
