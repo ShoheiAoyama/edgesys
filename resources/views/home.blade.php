@@ -162,6 +162,7 @@
             };
             let lineChart = new Chart(lineCtx, lineConfig);
         </script>
+        
     @endauth
 
     @guest
