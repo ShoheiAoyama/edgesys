@@ -29,5 +29,8 @@ Route::group(['prefix' => 'std', 'middleware' => 'auth'], function () {
     Route::get('edit/{id}', 'StdController@edit')->name('std.edit');
     Route::post('update/{id}', 'StdController@update')->name('std.update');
     Route::post('destroy/{id}', 'StdController@destroy')->name('std.destroy');
+    Route::get('report','StdController@report')->name('std.report');
+    Route::get('lesson','StdController@lesson')->name('std.lesson');
+    Route::get('contact','StdController@contact')->name('std.contact');
 });
 

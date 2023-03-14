@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\DB;
 class StdController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
+     * 生徒管理
+     * トップ画面
+     * 2023-03-08 S.Aoyama
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -22,8 +23,9 @@ class StdController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
+     * 生徒管理
+     * 作成画面
+     * 2023-03-09 S.Aoyama
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -33,8 +35,9 @@ class StdController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * 生徒管理
+     * 登録処理
+     * 2023-03-09 S.Aoyama
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -60,8 +63,9 @@ class StdController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
+     * 生徒管理
+     * 詳細表示画面
+     * 2023-03-09 S.Aoyama
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -74,8 +78,9 @@ class StdController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
+     * 生徒管理
+     * 登録画面
+     * 2023-03-09 S.Aoyama
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -87,8 +92,9 @@ class StdController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
+     * 生徒管理
+     * 更新画面
+     * 2023-03-11 S.Aoyama
      * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
@@ -114,8 +120,9 @@ class StdController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * 生徒管理
+     * 削除画面
+     * 2023-03-11 S.Aoyama
      * @param int $id
      * @return \Illuminate\Http\Response
      */
@@ -126,5 +133,35 @@ class StdController extends Controller
         $std->delete();
 
         return redirect('std/index');
+    }
+    /**
+     * レッスン管理
+     * トップ画面
+     * 2023-03-13 S.Aoyama
+     * @return \Illuminate\Http\Response
+     */
+    public function lesson(){
+        return view('std.lesson');
+    }
+
+
+    /**
+     *　レポート管理
+     * トップ画面
+     * 2023-03-13 S.Aoyama
+     * @return \Illuminate\Http\Response
+     */
+    public function report(){
+        return view('std.report');
+    }
+
+    /**
+     * 連絡事項
+     * トップ画面
+     * 2023-03-13 S.Aoyama
+     * @return \Illuminate\Http\Response
+     */
+    public function contact(){
+        return view('std.contact');
     }
 }
