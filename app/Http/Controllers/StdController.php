@@ -134,6 +134,37 @@ class StdController extends Controller
 
         return redirect('std/index');
     }
+
+    /**
+     * 生徒管理
+     * 作成画面
+     * 2023-03-09 S.Aoyama
+     * @return \Illuminate\Http\Response
+     */
+    public function create2($id)
+    {
+        $std = Std::find($id);
+//        $stdid = $std->id;
+        //曜日一覧
+        $weeks = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+        ];
+        //チーム一覧
+        $teams = [
+            'A', //0
+            'B', //1
+            'C', //2
+            'D', //3
+        ];
+        return view('std.create2',compact('std','weeks','teams'));
+    }
+
     /**
      * レッスン管理
      * トップ画面

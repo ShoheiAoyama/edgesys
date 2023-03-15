@@ -64,6 +64,179 @@
                         </div>
                     </div>{{--row--}}
                 </div>{{--card--}}
+
+                {{--詳細情報--}}
+                @if(isset($stdDetail->stdid))
+                    <div class="card mx-auto mt-3" style="width: 25rem;">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col-2" colspan="2">詳細情報</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">
+                                        フリガナ
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        性別
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        コース
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        月回数
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        レッスン曜日
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        レッスン時間
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        レッスンチーム
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        保護者様1
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        保護者様1属性
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        保護者様2
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        保護者様2属性
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        郵便番号
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        都道府県
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        住所
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        入会日
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        好きな教科
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        好きなモノ1
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        好きなモノ2
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        備考1
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        備考2
+                                    </th>
+                                    <td>{{$std->name}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row text-center justify-content-md-center mb-3">
+                            <div class="col-3">
+                                <form method="GET" action="{{route('std.edit2', ['id' => $std->id])}}">
+                                    @csrf
+                                    {{--                    <div style="display: block;text-align: right">--}}
+                                    <input class="btn btn-success" type="submit" value="変更">
+                                    {{--                    </div>--}}
+                                </form>
+                            </div>
+                            <div class="col-3">
+                                <form method="POST" action="{{route('std.destroy',['id' => $std->id])}}"
+                                      id="delete_{{$std->id}}">
+                                    @csrf
+                                    <a href="#" class="btn btn-danger" data-id="{{$std->id}}"
+                                       onclick="deletePost(this)">削除</a>
+                                </form>
+                            </div>
+                        </div>{{--row--}}
+                    </div>{{--card--}}
+                @else
+                    <div class="card mx-auto mt-3" style="width: 25rem;">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col-2" colspan="2">詳細情報</th>
+                                </tr>
+                                </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="col-2" colspan="2">詳細情報が登録されていません</th>
+                            </tr>
+                            </tbody>
+                            </table>
+                            <a href="{{route('std.create2',['id' => $std->id])}}" class="btn btn-success">作成</a>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
