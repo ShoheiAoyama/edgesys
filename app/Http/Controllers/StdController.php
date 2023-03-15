@@ -77,9 +77,19 @@ class StdController extends Controller
         $detailid = DB::table('std_details')->where('stdid', $std->stdid)->value('id');
         $std2 = StdDetail::find($detailid);
 
+        $weeks = [
+            '日', //0
+            '月', //1
+            '火', //2
+            '水', //3
+            '木', //4
+            '金', //5
+            '土', //6
+        ];
+
 //        var_dump($std2);
 //        exit;
-        return view('std.show', compact('std','std2'));
+        return view('std.show', compact('std','std2','weeks'));
     }
 
     /**
@@ -149,7 +159,7 @@ class StdController extends Controller
     public function create2($id)
     {
         $std = Std::find($id);
-//        $stdid = $std->id;
+
         //曜日一覧
         $weeks = [
             '日', //0
@@ -215,6 +225,8 @@ class StdController extends Controller
 //            'memo2' => $request->memo2,
             'created_at' => date('Y-m-d H:i:s'),
         ];
+        //もしすでに該当する生徒IDの詳細情報が登録されていたら、新規登録せずにリダイレクトさせる処理
+
 //        DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,pname1,rlt1,pname2,rlt2,post,pref,add,date,sub,favorite1,favorite2,memo1,memo2,created_at) values (:kana,:stdid,:course,:sex,:times,:week,:term,:team,:pname1,:rlt1,:pname2,:rlt2,:post,:pref,:add,:date,:sub,:favorite1,:favorite2,:memo1,:memo2,:created_at)', $stdlist);
         DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,created_at) values (:kana, :stdid, :course, :sex, :times, :week, :term, :team, :created_at)', $stdlist);
 

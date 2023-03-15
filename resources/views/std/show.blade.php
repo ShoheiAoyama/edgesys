@@ -124,19 +124,32 @@
                                     <th scope="row">
                                         レッスン曜日
                                     </th>
-                                    <td>{{$std2->week}}</td>
+                                    @foreach($weeks as $key => $value)
+                                        @if($std2->week == $key)
+                                    <td>{{$value}}</td>
+                                        @endif
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         レッスン時間
                                     </th>
-                                    <td>{{$std2->term}}</td>
+                                    @for($i=10;$i<20;$i++)
+                                        @if($std2->term == $i)
+                                            <td>{{$i}}:00〜{{$i}}:50</td>
+                                        @endif
+                                    @endfor
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         レッスンチーム
                                     </th>
-                                    <td>{{$std2->team}}</td>
+                                    <td>@if($std2->team == 0)A
+                                        @elseif($std2->team == 1)B
+                                        @elseif($std2->team == 2)C
+                                        @elseif($std2->team == 3)D
+                                        @else 表示エラー
+                                        @endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">

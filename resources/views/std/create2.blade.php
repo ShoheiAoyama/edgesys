@@ -106,7 +106,7 @@
                             <td><select name="term">
                                     <option value="">---</option>
                                     @for($i=10;$i<20;$i++)
-                                        <option value="{{$i}}">{{$i}}:00〜{{$i+1}}:50</option>
+                                        <option value="{{$i}}">{{$i}}:00〜{{$i}}:50</option>
                                     @endfor
                                 </select></td>
                         </tr>
