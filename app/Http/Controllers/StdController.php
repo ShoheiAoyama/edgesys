@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StdDetail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Std;
@@ -73,8 +74,12 @@ class StdController extends Controller
     {
 
         $std = Std::find($id);
+        $detailid = DB::table('std_details')->where('stdid', $std->stdid)->value('id');
+        $std2 = StdDetail::find($detailid);
 
-        return view('std.show', compact('std'));
+//        var_dump($std2);
+//        exit;
+        return view('std.show', compact('std','std2'));
     }
 
     /**
@@ -181,6 +186,40 @@ class StdController extends Controller
         $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
 
         return view('std.create2',compact('std','weeks','teams','rlts','posts','subs'));
+    }
+
+    public static function store2(Request $request)
+    {
+
+        $stdlist = [
+            'kana' => $request->kana,
+            'stdid' => $request->stdid,
+            'course' => $request->course,
+            'sex' => $request->sex,
+            'times' => $request->times,
+            'week' => $request->week,
+            'term' => $request->term,
+            'team' => $request->team,
+//            'pname1' => $request->pname1,
+//            'rlt1' => $request->rlt1,
+//            'pname2' => $request->pname2,
+//            'rlt2' => $request->rlt2,
+//            'post' => $request->post,
+//            'pref' => $request->pref,
+//            'add' => $request->add,
+//            'date' => $request->date,
+//            'sub' => $request->sub,
+//            'favorite1' => $request->favorite1,
+//            'favorite2' => $request->favorite2,
+//            'memo1' => $request->memo1,
+//            'memo2' => $request->memo2,
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+//        DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,pname1,rlt1,pname2,rlt2,post,pref,add,date,sub,favorite1,favorite2,memo1,memo2,created_at) values (:kana,:stdid,:course,:sex,:times,:week,:term,:team,:pname1,:rlt1,:pname2,:rlt2,:post,:pref,:add,:date,:sub,:favorite1,:favorite2,:memo1,:memo2,:created_at)', $stdlist);
+        DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,created_at) values (:kana, :stdid, :course, :sex, :times, :week, :term, :team, :created_at)', $stdlist);
+
+        return redirect('std/index');
+
     }
 
     /**

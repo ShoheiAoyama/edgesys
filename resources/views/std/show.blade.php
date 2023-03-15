@@ -66,7 +66,13 @@
                 </div>{{--card--}}
 
                 {{--詳細情報--}}
-                @if(isset($stdDetail->stdid))
+
+
+{{--                {{$std2->stdid}}--}}
+<!--                --><?php
+//                exit;
+//                ?>
+                @if(isset($std2->stdid))
                     <div class="card mx-auto mt-3" style="width: 25rem;">
                         <div class="card-body">
                             <table class="table">
@@ -80,122 +86,136 @@
                                     <th scope="row">
                                         フリガナ
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>{{$std2->kana}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         性別
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if($std2->sex == 0)男の子
+                                        @elseif($std2->sex == 1)女の子
+                                        @elseif($std2->sex == 2)その他
+                                        @else 表示エラー
+                                        @endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         コース
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if($std2->course == 0)Scratch
+                                        @elseif($std2->course == 1)Unity
+                                        @elseif($std2->course == 2)WEB
+                                        @elseif($std2->course == 3)その他
+                                        @else 表示エラー
+                                        @endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         月回数
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if($std2->times == 0)スタンダード(2回)
+                                        @elseif($std2->times == 1)ライト(4回)
+                                        @elseif($std2->times == 2)プレミアム(個別4回)
+                                        @elseif($std2->times == 3)その他
+                                        @else 表示エラー
+                                        @endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         レッスン曜日
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>{{$std2->week}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         レッスン時間
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>{{$std2->term}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         レッスンチーム
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>{{$std2->team}}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         保護者様1
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if(isset($std1->pname1)){{$std1->pname1}}@endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         保護者様1属性
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if(isset($std2->rlt1)){{$std2->rlt1}}@endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         保護者様2
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if(isset($std2->pname2)){{$std2->pname2}}@endif</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">
                                         保護者様2属性
                                     </th>
-                                    <td>{{$std->name}}</td>
+                                    <td>@if(isset($std2->rlt2)){{$std2->rlt2}}@endif</td>
                                 </tr>
-                                <tr>
-                                    <th scope="row">
-                                        郵便番号
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        都道府県
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        住所
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        入会日
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        好きな教科
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        好きなモノ1
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        好きなモノ2
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        備考1
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        備考2
-                                    </th>
-                                    <td>{{$std->name}}</td>
-                                </tr>
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        郵便番号--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        都道府県--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        住所--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        入会日--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        好きな教科--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        好きなモノ1--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        好きなモノ2--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        備考1--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
+{{--                                <tr>--}}
+{{--                                    <th scope="row">--}}
+{{--                                        備考2--}}
+{{--                                    </th>--}}
+{{--                                    <td>{{$std->name}}</td>--}}
+{{--                                </tr>--}}
                                 </tbody>
                             </table>
                         </div>

@@ -26,6 +26,7 @@ Route::group(['prefix' => 'std', 'middleware' => 'auth'], function () {
     Route::get('create', 'StdController@create')->name('std.create');
     Route::get('create2/{id}', 'StdController@create2')->name('std.create2');
     Route::post('store', 'StdController@store')->name('std.store');
+    Route::post('store2', 'StdController@store2')->name('std.store2');
     Route::get('show/{id}', 'StdController@show')->name('std.show');
     Route::get('edit/{id}', 'StdController@edit')->name('std.edit');
     Route::get('edit2/{id}', 'StdController@edit2')->name('std.edit2');

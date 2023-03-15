@@ -41,14 +41,11 @@
                     </tbody>
                 </table>
                 </div>
-                <form method="POST" action="{{route('std.store')}}">
+                <form method="POST" action="{{route('std.store2')}}">
                     @csrf
+                    <input type="hidden" name="stdid" value="<?php echo $std->stdid; ?>">
                     <table class="table" style="max-width: 600px;margin: auto">
                         <tbody>
-                        {{--                        <tr>--}}
-                        {{--                            <th scope="row">生徒氏名</th>--}}
-                        {{--                            <td><input type="text" name="name"></td>--}}
-                        {{--                        </tr>--}}
                         <tr>
                             <th scope="row">
                                 <span class="hissu">必須</span>フリガナ
@@ -61,9 +58,9 @@
                             </th>
                             <td><select name="sex">
                                     <option value="">---</option>
-                                    <option value="1">男の子</option>
-                                    <option value="2">女の子</option>
-                                    <option value="3">その他</option>
+                                    <option value="0">男の子</option>
+                                    <option value="1">女の子</option>
+                                    <option value="2">その他</option>
 {{--                                    <option value="3"><?php echo $std->id; ?></option>--}}
                                 </select></td>
                         </tr>
@@ -73,10 +70,10 @@
                             </th>
                             <td><select name="course">
                                     <option value="">---</option>
-                                    <option value="1">Scratch</option>
-                                    <option value="2">Unity</option>
-                                    <option value="3">WEB</option>
-                                    <option value="4">その他</option>
+                                    <option value="0">Scratch</option>
+                                    <option value="1">Unity</option>
+                                    <option value="2">WEB</option>
+                                    <option value="3">その他</option>
                                 </select></td>
                         </tr>
                         <tr>
@@ -85,10 +82,10 @@
                             </th>
                             <td><select name="times">
                                     <option value="">---</option>
-                                    <option value="1">スタンダード(2回)</option>
-                                    <option value="2">ライト(4回)</option>
-                                    <option value="3">プレミアム(個別4回)</option>
-                                    <option value="4">その他</option>
+                                    <option value="0">スタンダード(2回)</option>
+                                    <option value="1">ライト(4回)</option>
+                                    <option value="2">プレミアム(個別4回)</option>
+                                    <option value="3">その他</option>
                                 </select></td>
                         </tr>
                         <tr>
