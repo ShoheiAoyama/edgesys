@@ -8,22 +8,42 @@
                 <div class="mx-auto">
                     <div class="row justify-content-center">
                         <div class="col-md-8">
-                            <ul class="list-group list-group-horizontal" style="width: 25rem;">
+                            <ul class="list-group list-group-horizontal" style="width: 30rem;">
                                 <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
-                                        href="{{route('std.index')}}" style="color:dimgrey">TOP</a></li>
+                                        href="{{route('std.index')}}">生徒管理</a></li>
                                 <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
-                                        href="{{route('std.create')}}">新規作成</a></li>
+                                        href="{{route('std.lesson')}}" style="color:dimgrey">レッスン管理</a></li>
                                 <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
-                                        href="{{route('std.index')}}" style="color:dimgrey">授業レポート</a></li>
+                                        href="{{route('std.report')}}" style="color:dimgrey">レポート管理</a></li>
                                 <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
-                                        href="{{route('std.index')}}" style="color:dimgrey">生徒検索</a></li>
+                                        href="{{route('std.contact')}}" style="color:dimgrey">連絡事項</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <div class="card mx-auto mb-5 mt-3" style="max-width: 500px;margin: auto">
+                <table class="table table-borderless c2-table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">生徒名</th>
+                        <th scope="col">生徒ID</th>
+                        <th scope="col">パスワード</th>
+                        <th scope="col">表示</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{$std->name}}</th>
+                        <td>{{$std->stdid}}</td>
+                        <td>{{$std->psw}}</td>
+                        <td>{{$std->id}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
                 <form method="POST" action="{{route('std.store')}}">
                     @csrf
-                    <table class="table">
+                    <table class="table" style="max-width: 600px;margin: auto">
                         <tbody>
                         {{--                        <tr>--}}
                         {{--                            <th scope="row">生徒氏名</th>--}}
@@ -77,8 +97,8 @@
                             </th>
                             <td><select name="week">
                                     <option value="">---</option>
-                                    @foreach($weeks as $key => $week)
-                                        <option value="{{$key}}">{{$week}}</option>
+                                    @foreach($weeks as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>
@@ -99,8 +119,8 @@
                             </th>
                             <td><select name="team">
                                     <option value="">---</option>
-                                    @foreach($teams as $key => $team)
-                                        <option value="{{$key}}">{{$team}}</option>
+                                    @foreach($teams as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>
@@ -114,7 +134,12 @@
                             <th scope="row">
                                 保護者様1属性
                             </th>
-                            <td><input type="text" name="lrt1"></td>
+                            <td><select name="rlt1">
+                                    <option value="">---</option>
+                                    @foreach($rlts as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -126,13 +151,23 @@
                             <th scope="row">
                                 保護者様2属性
                             </th>
-                            <td><input type="text" name="lrt2"></td>
+                            <td><select name="rlt2">
+                                    <option value="">---</option>
+                                    @foreach($rlts as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <th scope="row">
                                 郵便番号
                             </th>
-                            <td><input type="text" name="post"></td>
+                            <td><select name="rlt2">
+                                    <option value="">---</option>
+                                    @foreach($posts as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -150,13 +185,18 @@
                             <th scope="row">
                                 入会日
                             </th>
-                            <td><input type="text" name="date"></td>
+                            <td><input type="date" name="date"></td>
                         </tr>
                         <tr>
                             <th scope="row">
                                 好きな教科
                             </th>
-                            <td><input type="text" name="sub"></td>
+                            <td><select name="sub">
+                                    <option value="">---</option>
+                                    @foreach($subs as $key => $value)
+                                        <option value="{{$key}}">{{$value}}</option>
+                                    @endforeach
+                                </select></td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -203,5 +243,10 @@
         font-size: 12px;
         font-weight: lighter;;
     }
-
+    .c2-table th{
+        width: 200px;
+    }
+    .c2-table td{
+        width: 400px;
+    }
 </style>
