@@ -93,7 +93,10 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title" style="text-align: center">コース比率<br>(Scr/Uni/WEB)</h5>
+                            <h5 class="card-title" style="text-align: center">コース比率</h5>
+                            <?php $coursesum = $course[0]+$course[1]+$course[2]; ?>
+                            <div style="text-align:center"><spna style="color: #7fbfff;font-size: 30px;">{{$course[0]/$coursesum*100}}</spna>% | <spna style="color: #7f7fff;font-size: 30px;">{{$course[1]/$coursesum*100}}</spna>% | <spna style="color: #bf7fff;font-size: 30px;">{{$course[2]/$coursesum*100}}</spna>%</div>
+                            <div style="text-align:center">(Scr/Uni/WEB)</div>
                         </div>
                     </div>
                 </div>

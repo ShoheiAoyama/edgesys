@@ -21,7 +21,30 @@ class StdController extends Controller
         //
         $stdlists = DB::select('select * from stds');
         $std2lists = DB::select('select * from std_details');
-        return view('std.index', compact('stdlists','std2lists'));
+        $stds = [];
+
+        foreach ($stdlists as $key => $value) {
+            $stds[$key] = $value;
+            foreach ($std2lists as $key2 => $value2) {
+                if ($value->stdid == $value2->stdid) {
+                    $stds[$key]->term = $value2->term;
+                    if ($value2->course == 0) {
+                        $stds[$key]->course = "Scratch";
+                    } elseif ($value2->course == 1) {
+                        $stds[$key]->course = "Unity";
+                    } elseif ($value2->course == 2) {
+                        $stds[$key]->course = "WEB";
+                    }
+                }
+            }
+        }
+//        echo '<pre>';
+//        var_dump($stds);
+//        echo '</pre>';
+//        exit;
+
+
+        return view('std.index', compact('stdlists', 'std2lists', 'stds'));
 //        return view('std.index', ['stdlists' => $stdlists]);
     }
 
@@ -116,7 +139,7 @@ class StdController extends Controller
 
 //        var_dump($std2);
 //        exit;
-        return view('std.show', compact('std','std2','weeks','teams','rlts','prefs','subs'));
+        return view('std.show', compact('std', 'std2', 'weeks', 'teams', 'rlts', 'prefs', 'subs'));
     }
 
     /**
@@ -129,8 +152,8 @@ class StdController extends Controller
     public function edit($id)
     {
         //
-            $std = Std::find($id);
-            return view('std.edit', compact('std'));
+        $std = Std::find($id);
+        return view('std.edit', compact('std'));
 
     }
 
@@ -225,7 +248,7 @@ class StdController extends Controller
         ];
         $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
 
-        return view('std.create2',compact('std','weeks','teams','rlts','prefs','subs'));
+        return view('std.create2', compact('std', 'weeks', 'teams', 'rlts', 'prefs', 'subs'));
     }
 
     public static function store2(Request $request)
@@ -262,6 +285,7 @@ class StdController extends Controller
         return redirect('std/index');
 
     }
+
     /**
      * 生徒管理
      * 登録画面
@@ -269,7 +293,7 @@ class StdController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit2(Request $requet,$id)
+    public function edit2(Request $requet, $id)
     {
         //
         $id0 = $requet->std_id;
@@ -308,14 +332,14 @@ class StdController extends Controller
             '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
         ];
         $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
-            $std = DB::table('stds')->where('id', $id0)->first();
-            $std2 = StdDetail::find($id);
+        $std = DB::table('stds')->where('id', $id0)->first();
+        $std2 = StdDetail::find($id);
 
 //            var_dump($std);
 //        echo $id0;
 //        exit;
 
-            return view('std.edit2', compact('std2','std','weeks','teams','rlts','prefs','subs'));
+        return view('std.edit2', compact('std2', 'std', 'weeks', 'teams', 'rlts', 'prefs', 'subs'));
     }
 
     /**
@@ -384,13 +408,15 @@ class StdController extends Controller
 
         return redirect('std/index');
     }
+
     /**
      * レッスン管理
      * トップ画面
      * 2023-03-13 S.Aoyama
      * @return \Illuminate\Http\Response
      */
-    public function lesson(){
+    public function lesson()
+    {
         return view('std.lesson');
     }
 
@@ -401,7 +427,8 @@ class StdController extends Controller
      * 2023-03-13 S.Aoyama
      * @return \Illuminate\Http\Response
      */
-    public function report(){
+    public function report()
+    {
         return view('std.report');
     }
 
@@ -411,7 +438,8 @@ class StdController extends Controller
      * 2023-03-13 S.Aoyama
      * @return \Illuminate\Http\Response
      */
-    public function contact(){
+    public function contact()
+    {
         return view('std.contact');
     }
 }

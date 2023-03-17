@@ -52,8 +52,24 @@ class HomeController extends Controller
             $times[] = $stdDetail->times;
             $sexs[] = $stdDetail->sex;
         }
-//        var_dump($locations);
-//        exit;
+
+        //courses
+        $course = [];
+        $course[0] = 0;//Scratch
+        $course[1] = 0;//Unity
+        $course[2] = 0;//WEB
+        foreach ($courses as $key => $value) {
+            if ($value == 0) {
+                $course[0] += 1;
+            } elseif ($value == 1) {
+                $course[1] += 1;
+            } elseif ($value == 2) {
+                $course[2] += 1;
+            }
+        }
+        arsort($course);
+
+        //location
         $location = [];
         foreach ($locations as $key => $value) {
             if (!is_null($value)) {
@@ -65,10 +81,11 @@ class HomeController extends Controller
             }
         }
         arsort($location);
+        //time
         $time = [];
-        $time[0] = 0;//Scratch
-        $time[1] = 0;//Unity
-        $time[2] = 0;//WEB
+        $time[0] = 0;//2回
+        $time[1] = 0;//4回
+        $time[2] = 0;//4回prem
         foreach ($times as $key => $value) {
 //            if (!isset($sex[$value])){
 //                $sex[$value] = 0;
@@ -77,13 +94,12 @@ class HomeController extends Controller
                 $time[0] += 1;
             } elseif ($value == 1) {
                 $time[1] += 1;
-            } else {
+            } elseif ($value == 2) {
                 $time[2] += 1;
             }
         }
         arsort($time);
-//        var_dump($time);
-//        exit;
+        //sex
         $sex = [];
         $sex[0] = 0;//男の子
         $sex[1] = 0;//女の子
@@ -106,6 +122,6 @@ class HomeController extends Controller
 //        var_dump($sex);
 //        echo '</pre>';
 //        exit;
-        return view('home', compact('location', 'grds', 'courses', 'time', 'sex'));
+        return view('home', compact('location', 'grds', 'course', 'time', 'sex'));
     }
 }
