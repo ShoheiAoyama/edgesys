@@ -16,35 +16,49 @@ class StdController extends Controller
      * 2023-03-08 S.Aoyama
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $stdlists = DB::select('select * from stds');
-        $std2lists = DB::select('select * from std_details');
-        $stds = [];
 
-        foreach ($stdlists as $key => $value) {
-            $stds[$key] = $value;
-            foreach ($std2lists as $key2 => $value2) {
-                if ($value->stdid == $value2->stdid) {
-                    $stds[$key]->term = $value2->term;
-                    if ($value2->course == 0) {
-                        $stds[$key]->course = "Scratch";
-                    } elseif ($value2->course == 1) {
-                        $stds[$key]->course = "Unity";
-                    } elseif ($value2->course == 2) {
-                        $stds[$key]->course = "WEB";
-                    }
-                }
-            }
+//        $search = $request;
+        $sql2 = 'select * from stds,std_details where stds.stdid = std_details.stdid';
+        if (isset($request->search2)){
+            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
         }
+        $stds = DB::select($sql2);
+
+//        echo '<pre>';
+//        var_dump($std2lists);
+//        echo '</pre>';
+//
+//        exit;
+
+
+//        $stdlists = DB::select('select * from stds');
+//        $std2lists = DB::select('select * from std_details');
+//        $stds = [];
+
+//        foreach ($stdlists as $key => $value) {
+//            $stds[$key] = $value;
+//            foreach ($std2lists as $key2 => $value2) {
+//                if ($value->stdid == $value2->stdid) {
+//                    $stds[$key]->term = $value2->term;
+//                    if ($value2->course == 0) {
+//                        $stds[$key]->course = "Scratch";
+//                    } elseif ($value2->course == 1) {
+//                        $stds[$key]->course = "Unity";
+//                    } elseif ($value2->course == 2) {
+//                        $stds[$key]->course = "WEB";
+//                    }
+//                }
+//            }
+//        }
 //        echo '<pre>';
 //        var_dump($stds);
 //        echo '</pre>';
 //        exit;
 
 
-        return view('std.index', compact('stdlists', 'std2lists', 'stds'));
+        return view('std.index', compact('stds','request'));
 //        return view('std.index', ['stdlists' => $stdlists]);
     }
 

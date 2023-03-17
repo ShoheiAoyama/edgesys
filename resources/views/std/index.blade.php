@@ -22,7 +22,10 @@
                     </div>
                 </div>
                 <div class="table-center">
-
+<?php
+//                    echo $request->search2;
+//exit;
+//?>
                     <div class="mx-auto">
                         <div class="row justify-content-center mt-2 mb-3">
                             <div class="col-md-2 text-center">
@@ -33,7 +36,7 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-3">
-                                            学年<select name="grd">
+                                            学年<select name="search1">
                                                 <option value="0" <?php if (!isset($grd)) {
                                                     echo "selected";
                                                 } ?>>全て
@@ -42,18 +45,24 @@
                                             </select>
                                         </div>
                                         <div class="col-3">
-                                            コース<select name="course">
-                                                <option value="0" <?php if (!isset($course)) {
+                                            コース<select name="search2">
+                                                <option value="" <?php if (!isset($request->search2)) {
                                                     echo "selected";
                                                 } ?>>全て
                                                 </option>
-                                                <option value="1">Scratch</option>
-                                                <option value="2">Unigy</option>
-                                                <option value="3">WEB</option>
+                                                <option value="0" <?php if ($request->search2 === '0') {
+                                                    echo "selected";
+                                                } ?>>Scratch</option>
+                                                <option value="1" <?php if ($request->search2 === '1') {
+                                                    echo "selected";
+                                                } ?>>Unigy</option>
+                                                <option value="2" <?php if ($request->search2 === '2') {
+                                                    echo "selected";
+                                                } ?>>WEB</option>
                                             </select>
                                         </div>
                                         <div class="col-4">
-                                            時間<select name="time">
+                                            時間<select name="search3">
                                                 <option value="0" <?php if (!isset($time)) {
                                                     echo "selected";
                                                 } ?>>全て
