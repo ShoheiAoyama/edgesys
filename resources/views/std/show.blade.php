@@ -161,7 +161,11 @@
                                     <th scope="row">
                                         保護者様1属性
                                     </th>
-                                    <td>@if(isset($std2->rlt1)){{$std2->rlt1}}@endif</td>
+                                    @foreach($rlts as $key => $value)
+                                        @if($std2->rlt1 == $key)
+                                            <td>{{$value}}</td>
+                                        @endif
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <th scope="row">
@@ -173,79 +177,86 @@
                                     <th scope="row">
                                         保護者様2属性
                                     </th>
-                                    <td>@if(isset($std2->rlt2)){{$std2->rlt2}}@endif</td>
+                                    @foreach($rlts as $key => $value)
+                                        @if($std2->rlt2 == $key)
+                                            <td>{{$value}}</td>
+                                        @endif
+                                    @endforeach
                                 </tr>
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        郵便番号--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        都道府県--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        住所--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        入会日--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        好きな教科--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        好きなモノ1--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        好きなモノ2--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        備考1--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="row">--}}
-{{--                                        備考2--}}
-{{--                                    </th>--}}
-{{--                                    <td>{{$std->name}}</td>--}}
-{{--                                </tr>--}}
+                                <tr>
+                                    <th scope="row">
+                                        郵便番号
+                                    </th>
+                                    <td>@if(isset($std2->post)){{$std2->post}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        都道府県
+                                    </th>
+                                    @foreach($prefs as $key => $value)
+                                        @if($std2->pref == $key)
+                                            <td>{{$value}}</td>
+                                        @endif
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        住所
+                                    </th>
+                                    <td>@if(isset($std2->add)){{$std2->add}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        入会日
+                                    </th>
+                                    <td>@if(isset($std2->date)){{$std2->date}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        好きな教科
+                                    </th>
+                                    <td>@if(isset($std2->sub)){{$std2->sub}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        好きなモノ1
+                                    </th>
+                                    <td>@if(isset($std2->favorite1)){{$std2->favorite1}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        好きなモノ2
+                                    </th>
+                                    <td>@if(isset($std2->favorite2)){{$std2->favorite2}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        備考1
+                                    </th>
+                                    <td>@if(isset($std2->memo1)){{$std2->memo1}}@endif</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">
+                                        備考2
+                                    </th>
+                                    <td>@if(isset($std2->memo2)){{$std2->memo2}}@endif</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="row text-center justify-content-md-center mb-3">
                             <div class="col-3">
-                                <form method="GET" action="{{route('std.edit2', ['id' => $std->id])}}">
+                                <form method="GET" action="{{route('std.edit2', ['id' => $std2->id])}}">
                                     @csrf
-                                    {{--                    <div style="display: block;text-align: right">--}}
+                                    <input type="hidden" name="std_id" value="{{$std->id}}">
                                     <input class="btn btn-success" type="submit" value="変更">
-                                    {{--                    </div>--}}
                                 </form>
                             </div>
                             <div class="col-3">
-                                <form method="POST" action="{{route('std.destroy',['id' => $std->id])}}"
-                                      id="delete_{{$std->id}}">
+                                <form method="POST" action="{{route('std.destroy2',['id' => $std2->id])}}"
+                                      id="delete_{{$std2->id}}">
                                     @csrf
-                                    <a href="#" class="btn btn-danger" data-id="{{$std->id}}"
+                                    <a href="#" class="btn btn-danger" data-id="{{$std2->id}}"
                                        onclick="deletePost(this)">削除</a>
                                 </form>
                             </div>

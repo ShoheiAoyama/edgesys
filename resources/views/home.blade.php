@@ -62,21 +62,24 @@
                 </div>
             </div>
             {{-- end Sales analysis(総利益、売上/月、利益/月、経費/月)--}}
-
+            <?php //var_dump($location); exit; ?>
             {{-- Marketing analysis --}}
             <h2 style="text-align: center" class="mt-3">Marketing analysis</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">地域別</h5>
+                            <h5 class="card-title">獲得単価</h5>
+                            <canvas id="japanese_people_chart" width="500" height="500"></canvas>
+                            {{--                            <canvas id="score" class = "chart"></canvas>--}}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">学年別</h5>
+                            <h5 class="card-title">地域別</h5>
+                            <canvas id="location" width="500" height="500"></canvas>
                         </div>
                     </div>
                 </div>
@@ -90,28 +93,34 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">コース比率<br>(Scr/Uni/WEB)</h5>
+                            <h5 class="card-title" style="text-align: center">コース比率<br>(Scr/Uni/WEB)</h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">月回数比率(2/4)</h5>
+                            <h5 class="card-title" style="text-align: center">月回数比率</h5>
+                            <?php $timesum = $time[0]+$time[1]+$time[2]; ?>
+                            <div style="text-align:center"><spna style="color: #7fbfff;font-size: 30px;">{{$time[0]/$timesum*100}}</spna>% | <spna style="color: #7f7fff;font-size: 30px;">{{$time[1]/$timesum*100}}</spna>% | <spna style="color: #bf7fff;font-size: 30px;">{{$time[2]/$timesum*100}}</spna>%</div>
+                            <div style="text-align:center">(2回/4回/4回Prem)</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">男女比</h5>
+                            <h5 class="card-title" style="text-align: center">男女比</h5>
+                            <?php $sexsum = $sex[0]+$sex[1]+$sex[2]; ?>
+                            <div style="text-align:center"><spna style="color: #4dc0b5;font-size: 30px;">{{$sex[0]/$sexsum*100}}</spna>% | <spna style="color: palevioletred;font-size: 30px;">{{$sex[1]/$sexsum*100}}</spna>%</div>
+                            <div style="text-align:center">(男の子/女の子)</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">備考</h5>
+                            <h5 class="card-title" style="text-align: center">備考</h5>
                         </div>
                     </div>
                 </div>
@@ -162,7 +171,103 @@
             };
             let lineChart = new Chart(lineCtx, lineConfig);
         </script>
-        
+
+        {{--獲得単価--}}
+        <script>
+            var now = new Date();
+            var barmonth = [now.getMonth() + '月', (now.getMonth() + 1) + '月', (now.getMonth() + 2) + '月', (now.getMonth() + 3) + '月', (now.getMonth() + 4) + '月', (now.getMonth() + 5) + '月'];
+            let barCtx = document.getElementById("japanese_people_chart");
+            // 線グラフの設定
+            let barConfig = {
+                type: 'bar',
+                data: {
+                    labels: barmonth,
+                    datasets: [{
+                        label: "ポスティング",
+                        data: [127094745, 127041812, 126918546, 126748506, 126555078, 126146099],
+                        backgroundColor: ['#4169e1']
+                    }, {
+                        label: "google広告",
+                        data: [80000000, 90000000, 95000000, 100000000, 110000000, 115000000],
+                        backgroundColor: ['#ffa500']
+                    }, {
+                        label: "Insta広告",
+                        data: [75000000, 85000000, 93000000, 91000000, 80000000, 75000000],
+                        backgroundColor: ['#fa8072']
+                    },
+                        {
+                            label: "門配",
+                            data: [127094745, 127041812, 126918546, 126748506, 126555078, 126146099],
+                            backgroundColor: ['#4169e1']
+                        }, {
+                            label: "紹介",
+                            data: [80000000, 90000000, 95000000, 100000000, 110000000, 115000000],
+                            backgroundColor: ['#ffa500']
+                        }, {
+                            label: "コエテコ",
+                            data: [75000000, 85000000, 93000000, 91000000, 80000000, 75000000],
+                            backgroundColor: ['#fa8072']
+                        }],
+                },
+                options: {
+                    responsive: false
+                }
+            };
+            let barChart = new Chart(barCtx, barConfig);
+
+        </script>
+        {{--地域別--}}
+        <?php
+
+        $dou1 = [];
+        $dou2 = [];
+        foreach ($location as $key => $value) {
+            $dou1[] = $key;
+            $dou2[] = $value;
+        }
+
+        $json_dou1 = json_encode($dou1);
+        $json_dou2 = json_encode($dou2);
+
+//                var_dump($json_dou2);
+//                exit;
+
+        ?>
+        <script>
+
+            var js_dou1 = [];
+            var js_dou1 = [<?php echo $json_dou1; ?>];
+            var js_dou2 = [];
+            var js_dou2 = [<?php echo $json_dou2; ?>];
+
+            var data0 = [ 'apple', 'orange', 'banana'];
+            var tmpData1 = [];
+            for (var value of js_dou2){
+                tmpData1.push(value)
+            }
+            console.log(tmpData1)
+
+
+                window.onload = function () {
+                let context2 = document.querySelector("#location").getContext('2d')
+                new Chart(context2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: js_dou1,
+                        datasets: [{
+                            // backgroundColor: ["#fa8072", "#00ff7f", "#00bfff"],
+                            data: ["2","1","1"]
+                            // data: [js_dou2[0],js_dou2[1],js_dou2[2]]
+                            // data: tmpData1,
+                        }]
+                    },
+                    options: {
+                        responsive: false,
+                    }
+                });
+            }
+        </script>
+
     @endauth
 
     @guest

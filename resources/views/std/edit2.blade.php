@@ -21,6 +21,8 @@
                         </div>
                     </div>
                 </div>
+<!--                --><?php //var_dump($std);
+//                exit; ?>
                 <div class="card mx-auto mb-5 mt-3" style="max-width: 600px;margin: auto;text-align: center">
                 <table class="table table-borderless c2-table">
                     <thead class="thead-dark">
@@ -41,16 +43,15 @@
                     </tbody>
                 </table>
                 </div>
-                <form method="POST" action="{{route('std.store2')}}">
+                <form method="POST" action="{{route('std.update2', ['id' => $std2->id])}}">
                     @csrf
-                    <input type="hidden" name="stdid" value="<?php echo $std->stdid; ?>">
                     <table class="table" style="max-width: 600px;margin: auto">
                         <tbody>
                         <tr>
                             <th scope="row">
                                 <span class="hissu">必須</span>フリガナ
                             </th>
-                            <td><input type="text" name="kana"></td>
+                            <td><input type="text" name="kana" value="{{$std2->kana}}"></td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -58,10 +59,9 @@
                             </th>
                             <td><select name="sex">
                                     <option value="">---</option>
-                                    <option value="0">男の子</option>
-                                    <option value="1">女の子</option>
-                                    <option value="2">その他</option>
-{{--                                    <option value="3"><?php echo $std->id; ?></option>--}}
+                                    <option value="0" @if($std2->sex == 0) selected @endif>男の子</option>
+                                    <option value="1" @if($std2->sex == 1) selected @endif>女の子</option>
+                                    <option value="2" @if($std2->sex == 2) selected @endif>その他</option>
                                 </select></td>
                         </tr>
                         <tr>
@@ -70,10 +70,10 @@
                             </th>
                             <td><select name="course">
                                     <option value="">---</option>
-                                    <option value="0">Scratch</option>
-                                    <option value="1">Unity</option>
-                                    <option value="2">WEB</option>
-                                    <option value="3">その他</option>
+                                    <option value="0" @if($std2->course == 0) selected @endif>Scratch</option>
+                                    <option value="1" @if($std2->course == 1) selected @endif>Unity</option>
+                                    <option value="2" @if($std2->course == 2) selected @endif>WEB</option>
+                                    <option value="3" @if($std2->course == 3) selected @endif>その他</option>
                                 </select></td>
                         </tr>
                         <tr>
@@ -82,10 +82,10 @@
                             </th>
                             <td><select name="times">
                                     <option value="">---</option>
-                                    <option value="0">スタンダード(2回)</option>
-                                    <option value="1">ライト(4回)</option>
-                                    <option value="2">プレミアム(個別4回)</option>
-                                    <option value="3">その他</option>
+                                    <option value="0" @if($std2->times == 0) selected @endif>スタンダード(2回)</option>
+                                    <option value="1" @if($std2->times == 1) selected @endif>ライト(4回)</option>
+                                    <option value="2" @if($std2->times == 2) selected @endif>プレミアム(個別4回)</option>
+                                    <option value="3" @if($std2->times == 3) selected @endif>その他</option>
                                 </select></td>
                         </tr>
                         <tr>
@@ -95,7 +95,7 @@
                             <td><select name="week">
                                     <option value="">---</option>
                                     @foreach($weeks as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                        <option value="{{$key}}" @if($std2->weeks == $key) selected @endif>{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>
@@ -106,7 +106,7 @@
                             <td><select name="term">
                                     <option value="">---</option>
                                     @for($i=10;$i<20;$i++)
-                                        <option value="{{$i}}">{{$i}}:00〜{{$i}}:50</option>
+                                        <option value="{{$i}}" @if($std2->term == $i) selected @endif>{{$i}}:00〜{{$i}}:50</option>
                                     @endfor
                                 </select></td>
                         </tr>
@@ -117,7 +117,7 @@
                             <td><select name="team">
                                     <option value="">---</option>
                                     @foreach($teams as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                        <option value="{{$key}}" @if($std2->team == $key) selected @endif>{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>
@@ -125,7 +125,7 @@
                             <th scope="row">
                                 保護者様1
                             </th>
-                            <td><input type="text" name="pname1"></td>
+                            <td><input type="text" name="pname1" value="@if(isset($std2->pname1)){{$std2->pname1}}@endif"></td>
                         </tr>
                         <tr>
                             <th scope="row">
@@ -134,7 +134,7 @@
                             <td><select name="rlt1">
                                     <option value="">---</option>
                                     @foreach($rlts as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                        <option value="{{$key}}" @if($std2->rlt1 == $key) selected @endif>{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>
@@ -151,7 +151,7 @@
                             <td><select name="rlt2">
                                     <option value="">---</option>
                                     @foreach($rlts as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                        <option value="{{$key}}" @if($std2->rlt2 == $key) selected @endif>{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>
@@ -168,7 +168,7 @@
                             <td><select name="pref">
                                     <option value="">---</option>
                                     @foreach($prefs as $key => $value)
-                                        <option value="{{$key}}">{{$value}}</option>
+                                        <option value="{{$key}}" @if($std2->pref == $key) selected @endif>{{$value}}</option>
                                     @endforeach
                                 </select></td>
                         </tr>

@@ -11,13 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-//    return view('welcome');
-    return view('home');
-});
+//Route::get('/', function () {
+//    return view('home');
+//});
 
 Auth::routes();
-
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'std', 'middleware' => 'auth'], function () {
@@ -31,7 +30,9 @@ Route::group(['prefix' => 'std', 'middleware' => 'auth'], function () {
     Route::get('edit/{id}', 'StdController@edit')->name('std.edit');
     Route::get('edit2/{id}', 'StdController@edit2')->name('std.edit2');
     Route::post('update/{id}', 'StdController@update')->name('std.update');
+    Route::post('update2/{id}', 'StdController@update2')->name('std.update2');
     Route::post('destroy/{id}', 'StdController@destroy')->name('std.destroy');
+    Route::post('destroy2/{id}', 'StdController@destroy2')->name('std.destroy2');
     Route::get('report','StdController@report')->name('std.report');
     Route::get('lesson','StdController@lesson')->name('std.lesson');
     Route::get('contact','StdController@contact')->name('std.contact');

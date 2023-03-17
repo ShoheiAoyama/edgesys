@@ -20,7 +20,9 @@ class StdController extends Controller
     {
         //
         $stdlists = DB::select('select * from stds');
-        return view('std.index', ['stdlists' => $stdlists]);
+        $std2lists = DB::select('select * from std_details');
+        return view('std.index', compact('stdlists','std2lists'));
+//        return view('std.index', ['stdlists' => $stdlists]);
     }
 
     /**
@@ -77,19 +79,44 @@ class StdController extends Controller
         $detailid = DB::table('std_details')->where('stdid', $std->stdid)->value('id');
         $std2 = StdDetail::find($detailid);
 
+        //曜日一覧
         $weeks = [
-            '日', //0
-            '月', //1
-            '火', //2
-            '水', //3
-            '木', //4
-            '金', //5
-            '土', //6
+            '日曜日', //0
+            '月曜日', //1
+            '火曜日', //2
+            '水曜日', //3
+            '木曜日', //4
+            '金曜日', //5
+            '土曜日', //6
         ];
+        //チーム一覧
+        $teams = [
+            'A', //0
+            'B', //1
+            'C', //2
+            'D', //3
+        ];
+        $rlts = [
+            '母親', //0
+            '父親', //1
+            '祖母', //2
+            '祖母', //3
+            'その他', //4
+        ];
+        $prefs = [
+            '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
+            '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
+            '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
+            '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県',
+            '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県',
+            '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県',
+            '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
+        ];
+        $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
 
 //        var_dump($std2);
 //        exit;
-        return view('std.show', compact('std','std2','weeks'));
+        return view('std.show', compact('std','std2','weeks','teams','rlts','prefs','subs'));
     }
 
     /**
@@ -102,8 +129,9 @@ class StdController extends Controller
     public function edit($id)
     {
         //
-        $std = Std::find($id);
-        return view('std.edit', compact('std'));
+            $std = Std::find($id);
+            return view('std.edit', compact('std'));
+
     }
 
     /**
@@ -125,6 +153,8 @@ class StdController extends Controller
             'psw' => $request->psw,
         ];
         $check = DB::update('update stds set name =:name, stdid =:stdid, psw =:psw where id =:id', $stdlist);
+
+        //もしstdidが変更になるなら、std_detailsテーブルのstdidも変更させる
 
         if ($check !== '0') {
             return redirect('std/index');
@@ -162,13 +192,13 @@ class StdController extends Controller
 
         //曜日一覧
         $weeks = [
-            '日', //0
-            '月', //1
-            '火', //2
-            '水', //3
-            '木', //4
-            '金', //5
-            '土', //6
+            '日曜日', //0
+            '月曜日', //1
+            '火曜日', //2
+            '水曜日', //3
+            '木曜日', //4
+            '金曜日', //5
+            '土曜日', //6
         ];
         //チーム一覧
         $teams = [
@@ -184,7 +214,7 @@ class StdController extends Controller
             '祖母', //3
             'その他', //4
         ];
-        $posts = [
+        $prefs = [
             '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
             '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
             '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
@@ -195,7 +225,7 @@ class StdController extends Controller
         ];
         $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
 
-        return view('std.create2',compact('std','weeks','teams','rlts','posts','subs'));
+        return view('std.create2',compact('std','weeks','teams','rlts','prefs','subs'));
     }
 
     public static function store2(Request $request)
@@ -210,30 +240,150 @@ class StdController extends Controller
             'week' => $request->week,
             'term' => $request->term,
             'team' => $request->team,
-//            'pname1' => $request->pname1,
-//            'rlt1' => $request->rlt1,
-//            'pname2' => $request->pname2,
-//            'rlt2' => $request->rlt2,
-//            'post' => $request->post,
-//            'pref' => $request->pref,
-//            'add' => $request->add,
-//            'date' => $request->date,
-//            'sub' => $request->sub,
-//            'favorite1' => $request->favorite1,
-//            'favorite2' => $request->favorite2,
-//            'memo1' => $request->memo1,
-//            'memo2' => $request->memo2,
+            'pname1' => $request->pname1,
+            'rlt1' => $request->rlt1,
+            'pname2' => $request->pname2,
+            'rlt2' => $request->rlt2,
+            'post' => $request->post,
+            'pref' => $request->pref,
+            'add2' => $request->add,
+            'date2' => $request->date,
+            'sub' => $request->sub,
+            'favorite1' => $request->favorite1,
+            'favorite2' => $request->favorite2,
+            'memo1' => $request->memo1,
+            'memo2' => $request->memo2,
             'created_at' => date('Y-m-d H:i:s'),
         ];
         //もしすでに該当する生徒IDの詳細情報が登録されていたら、新規登録せずにリダイレクトさせる処理
 
-//        DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,pname1,rlt1,pname2,rlt2,post,pref,add,date,sub,favorite1,favorite2,memo1,memo2,created_at) values (:kana,:stdid,:course,:sex,:times,:week,:term,:team,:pname1,:rlt1,:pname2,:rlt2,:post,:pref,:add,:date,:sub,:favorite1,:favorite2,:memo1,:memo2,:created_at)', $stdlist);
-        DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,created_at) values (:kana, :stdid, :course, :sex, :times, :week, :term, :team, :created_at)', $stdlist);
+        DB::insert('insert into std_details (kana,stdid,course,sex,times,week,term,team,pname1,rlt1,pname2,rlt2,post,pref,`add`,`date`,sub,favorite1,favorite2,memo1,memo2,created_at) values (:kana,:stdid,:course,:sex,:times,:week,:term,:team,:pname1,:rlt1,:pname2,:rlt2,:post,:pref,:add2,:date2,:sub,:favorite1,:favorite2,:memo1,:memo2,:created_at)', $stdlist);
 
         return redirect('std/index');
 
     }
+    /**
+     * 生徒管理
+     * 登録画面
+     * 2023-03-09 S.Aoyama
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit2(Request $requet,$id)
+    {
+        //
+        $id0 = $requet->std_id;
 
+        //曜日一覧
+        $weeks = [
+            '日曜日', //0
+            '月曜日', //1
+            '火曜日', //2
+            '水曜日', //3
+            '木曜日', //4
+            '金曜日', //5
+            '土曜日', //6
+        ];
+        //チーム一覧
+        $teams = [
+            'A', //0
+            'B', //1
+            'C', //2
+            'D', //3
+        ];
+        $rlts = [
+            '母親', //0
+            '父親', //1
+            '祖母', //2
+            '祖母', //3
+            'その他', //4
+        ];
+        $prefs = [
+            '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
+            '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
+            '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
+            '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県',
+            '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県',
+            '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県',
+            '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
+        ];
+        $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
+            $std = DB::table('stds')->where('id', $id0)->first();
+            $std2 = StdDetail::find($id);
+
+//            var_dump($std);
+//        echo $id0;
+//        exit;
+
+            return view('std.edit2', compact('std2','std','weeks','teams','rlts','prefs','subs'));
+    }
+
+    /**
+     * 生徒管理
+     * 更新画面
+     * 2023-03-11 S.Aoyama
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update2(Request $request, $id)
+    {
+        //
+
+        $stdlist = [
+            'id' => $request->id,
+            'kana' => $request->kana,
+            'sex' => $request->sex,
+            'course' => $request->course,
+            'times' => $request->times,
+            'week' => $request->week,
+            'term' => $request->term,
+            'team' => $request->team,
+            'pname1' => $request->pname1,
+            'rlt1' => $request->rlt1,
+            'pname2' => $request->pname2,
+            'rlt2' => $request->rlt2,
+            'post' => $request->post,
+            'pref' => $request->pref,
+            'add2' => $request->add,
+            'date2' => $request->date,
+            'sub' => $request->sub,
+            'favorite1' => $request->favorite1,
+            'favorite2' => $request->favorite2,
+            'memo1' => $request->memo1,
+            'memo2' => $request->memo2,
+
+        ];
+        $check = DB::update('update std_details set kana =:kana, sex =:sex, course =:course, times =:times, week =:week, term =:term, team =:team, pname1 =:pname1, rlt1 =:rlt1, pname2 =:pname2, rlt2 =:rlt2, post =:post,pref =:pref, `add` =:add2, `date` =:date2, sub =:sub, favorite1 =:favorite1, favorite2 =:favorite2, memo1 =:memo1, memo2 =:memo2 where id =:id', $stdlist);
+
+        //もしstdidが変更になるなら、std_detailsテーブルのstdidも変更させる
+
+        if ($check !== '0') {
+            return redirect('std/index');
+//            return redirect('std/report');
+        } else {
+            return redirect('std/edit');
+        }
+
+    }
+
+    /**
+     * 生徒管理
+     * 削除画面
+     * 2023-03-11 S.Aoyama
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy2($id)
+    {
+        //
+//        $std = Std::find($id);
+        $stddetail = StdDetail::find($id);
+//        $std->delete();
+        $stddetail->delete();
+
+        return redirect('std/index');
+    }
     /**
      * レッスン管理
      * トップ画面
