@@ -55,7 +55,7 @@
                                 <a class="nav-link" href="{{ url('/') }}">コンソール</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('std.index') }}">生徒管理</a>
+                                <a class="nav-link" href="{{ route('std.index') }}">スクール管理</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('std.index') }}">マニュアル</a>

@@ -25,37 +25,18 @@ class StdController extends Controller
             $sql2 .= " and std_details.course = '" . $request->search2 . "'";
         }
         $stds = DB::select($sql2);
+        foreach ($stds as $key => $value) {
+            if (isset($value->course)) {
+                    if ($value->course == "0") {
+                        $stds[$key]->course = "Scratch";
+                    } elseif ($value->course == "1") {
+                        $stds[$key]->course = "Unity";
+                    } elseif ($value->course == "2") {
+                        $stds[$key]->course = "WEB";
+                    }
+                }
+        }
 
-//        echo '<pre>';
-//        var_dump($std2lists);
-//        echo '</pre>';
-//
-//        exit;
-
-
-//        $stdlists = DB::select('select * from stds');
-//        $std2lists = DB::select('select * from std_details');
-//        $stds = [];
-
-//        foreach ($stdlists as $key => $value) {
-//            $stds[$key] = $value;
-//            foreach ($std2lists as $key2 => $value2) {
-//                if ($value->stdid == $value2->stdid) {
-//                    $stds[$key]->term = $value2->term;
-//                    if ($value2->course == 0) {
-//                        $stds[$key]->course = "Scratch";
-//                    } elseif ($value2->course == 1) {
-//                        $stds[$key]->course = "Unity";
-//                    } elseif ($value2->course == 2) {
-//                        $stds[$key]->course = "WEB";
-//                    }
-//                }
-//            }
-//        }
-//        echo '<pre>';
-//        var_dump($stds);
-//        echo '</pre>';
-//        exit;
 
 
         return view('std.index', compact('stds','request'));
@@ -429,12 +410,74 @@ class StdController extends Controller
      * 2023-03-13 S.Aoyama
      * @return \Illuminate\Http\Response
      */
-    public function lesson()
+    public function lesson(Request $request)
     {
-        return view('std.lesson');
+        $sql2 = 'select * from stds,std_details where stds.stdid = std_details.stdid';
+        if (isset($request->search2)){
+            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
+        }
+        $stds = DB::select($sql2);
+        foreach ($stds as $key => $value) {
+            if (isset($value->course)) {
+                if ($value->course == "0") {
+                    $stds[$key]->course = "Scratch";
+                } elseif ($value->course == "1") {
+                    $stds[$key]->course = "Unity";
+                } elseif ($value->course == "2") {
+                    $stds[$key]->course = "WEB";
+                }
+            }
+        }
+
+        return view('std.lesson',compact('stds','request'));
     }
+    /**
+     * レッスン管理
+     * 新規作成画面
+     * 2023-03-13 S.Aoyama
+     * @return \Illuminate\Http\Response
+     */
+    public function lsncreate($id)
+    {
+        $std = Std::find($id);
 
+        //曜日一覧
+        $weeks = [
+            '日曜日', //0
+            '月曜日', //1
+            '火曜日', //2
+            '水曜日', //3
+            '木曜日', //4
+            '金曜日', //5
+            '土曜日', //6
+        ];
+        //チーム一覧
+        $teams = [
+            'A', //0
+            'B', //1
+            'C', //2
+            'D', //3
+        ];
+        $rlts = [
+            '母親', //0
+            '父親', //1
+            '祖母', //2
+            '祖母', //3
+            'その他', //4
+        ];
+        $prefs = [
+            '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県',
+            '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県',
+            '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県',
+            '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県',
+            '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県',
+            '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県',
+            '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
+        ];
+        $subs = ["算数", "図工", "理科", "美術", "社会", "国語", "音楽", "体育", "道徳"];
 
+        return view('std.create2', compact('std', 'weeks', 'teams', 'rlts', 'prefs', 'subs'));
+    }
     /**
      *　レポート管理
      * トップ画面
@@ -456,4 +499,7 @@ class StdController extends Controller
     {
         return view('std.contact');
     }
+
+
+
 }
