@@ -6,6 +6,22 @@
             <div class="col-md-8">
                 <h2 style="text-align: center">スクール管理</h2>
                 <div class="mx-auto">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <ul class="list-group list-group-horizontal" style="width: 30rem;">
+                                <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
+                                        href="{{route('std.index')}}" style="color:dimgrey">生徒管理</a></li>
+                                <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
+                                        href="{{route('std.lesson')}}">レッスン管理</a></li>
+                                <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
+                                        href="{{route('std.report')}}" style="color:dimgrey">レポート管理</a></li>
+                                <li class="list-group-item" style="border: none;background-color: #f8fafc;"><a
+                                        href="{{route('std.contact')}}" style="color:dimgrey">連絡事項</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mx-auto">
                     <div class="row justify-content-center mt-2 mb-3">
                         <div class="col-md-2 text-center">
                             <a href="{{route('std.lsncreate')}}" class="btn btn-success">新規</a>
