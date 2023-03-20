@@ -19,35 +19,6 @@ class StdController extends Controller
     public function index(Request $request)
     {
 
-//        $search = $request;
-//        $sql2 = 'select * from stds,std_details where stds.stdid = std_details.stdid';
-
-
-        //元クエリ
-//        $sql2 = 'select stds.*,std_details.* from stds,std_details';
-//        if (isset($request->search2)){
-//            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
-//        }
-
-
-//        $stds = DB::select($sql2);
-//        foreach ($stds as $key => $value) {
-//            if (isset($value->course)) {
-//                    if ($value->course == "0") {
-//                        $stds[$key]->course = "Scratch";
-//                    } elseif ($value->course == "1") {
-//                        $stds[$key]->course = "Unity";
-//                    } elseif ($value->course == "2") {
-//                        $stds[$key]->course = "WEB";
-//                    }
-//                }
-//        }
-
-
-
-//        $sql1 = 'select * from stds ';
-//        $stdData = DB::select($sql1);
-
         if (isset($request)){
             $sql1 = "select stds.* from stds,std_details where stds.stdid = std_details.stdid";
             if (isset($request->search2)){
@@ -86,22 +57,8 @@ class StdController extends Controller
                 }
             }
         }
-
-
-
-//
-//        if (isset($request->search2)){
-//            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
-//        }
-//        echo "<pre>";
-//        var_dump($stds);
-//        echo "</pre>";
-//        exit;
-
-
-
+        
         return view('std.index', compact('stds','request'));
-//        return view('std.index', ['stdlists' => $stdlists]);
     }
 
     /**
