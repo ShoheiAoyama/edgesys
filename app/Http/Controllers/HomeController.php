@@ -40,18 +40,30 @@ class HomeController extends Controller
 //        $stdDetails = DB::table('std_details')->pluck('pref');
         $stdDetails = DB::table('std_details')->get();
 
+        $benes = [];//利益
         $locations = [];//地域別
         $grds = [];//学年別
         $courses = [];//コース別
         $times = [];//月回数比
         $sexs = [];//男女比
         foreach ($stdDetails as $stdDetail) {
-            $locations[] = $stdDetail->pref;
-            $grds[] = "";
-            $courses[] = $stdDetail->course;
-            $times[] = $stdDetail->times;
-            $sexs[] = $stdDetail->sex;
+            if (isset($stdDetail->date)) {
+                if ($stdDetail->course == 0) {
+                    $benes[][mb_substr($stdDetail->date, 0, 7)] = 3980;
+                } elseif ($stdDetail->course == 1) {
+                    $benes[][mb_substr($stdDetail->date, 0, 7)] = 5980;
+                } elseif ($stdDetail->course == 2) {
+                    $benes[][mb_substr($stdDetail->date, 0, 7)] = 3980;
+                }
+                $locations[] = $stdDetail->pref;
+                $grds[] = "";
+                $courses[] = $stdDetail->course;
+                $times[] = $stdDetail->times;
+                $sexs[] = $stdDetail->sex;
+            }
         }
+        var_dump($benes);
+        exit;
 
         //courses
         $course = [];
@@ -87,9 +99,6 @@ class HomeController extends Controller
         $time[1] = 0;//4回
         $time[2] = 0;//4回prem
         foreach ($times as $key => $value) {
-//            if (!isset($sex[$value])){
-//                $sex[$value] = 0;
-//            }
             if ($value == 0) {
                 $time[0] += 1;
             } elseif ($value == 1) {

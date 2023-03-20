@@ -20,7 +20,8 @@ class StdController extends Controller
     {
 
 //        $search = $request;
-        $sql2 = 'select * from stds,std_details where stds.stdid = std_details.stdid';
+//        $sql2 = 'select * from stds,std_details where stds.stdid = std_details.stdid';
+        $sql2 = 'select stds.*,std_details.* from stds,std_details where stds.stdid = std_details.stdid';
         if (isset($request->search2)){
             $sql2 .= " and std_details.course = '" . $request->search2 . "'";
         }
@@ -36,6 +37,10 @@ class StdController extends Controller
                     }
                 }
         }
+        echo "<pre>";
+        var_dump($stds);
+        echo "</pre>";
+        exit;
 
 
 
@@ -94,8 +99,21 @@ class StdController extends Controller
     {
 
         $std = Std::find($id);
+
+//        echo $std->id;
+//        exit;
+
+
+//        $detailid = DB::select("select std_details.id from stds,std_details where '" . $std->id . "' = std_details.stdid");
         $detailid = DB::table('std_details')->where('stdid', $std->stdid)->value('id');
+
+//        echo '<pre>';
+//        var_dump($detailid);
+//        echo '</pre>';
+//        exit;
+
         $std2 = StdDetail::find($detailid);
+
 
         //曜日一覧
         $weeks = [

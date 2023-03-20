@@ -66,12 +66,6 @@
                 </div>{{--card--}}
 
                 {{--詳細情報--}}
-
-
-{{--                {{$std2->stdid}}--}}
-<!--                --><?php
-//                exit;
-//                ?>
                 @if(isset($std2->stdid))
                     <div class="card mx-auto mt-3" style="width: 25rem;">
                         <div class="card-body">
