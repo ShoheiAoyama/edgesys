@@ -99,12 +99,12 @@
                                     <th scope="row">
                                         <div class="align-middle">{{$key+1}}</div>
                                     </th>
-                                    <td>{{$value->name}}</td>
+                                    <td>{{$value['name']}}</td>
                                     <td>学年</td>
-                                    <td>@if(isset($value->course)){{$value->course}}@endif</td>
-                                    <td>@if(isset($value->term)){{$value->term}}:00-{{$value->term}}:50 @endif</td>
+                                    <td>@if(isset($value['course'])){{$value['course']}}@endif</td>
+                                    <td>@if(isset($value['term'])){{$value['term']}}:00-{{$value['term']}}:50 @endif</td>
                                     <td><a type="button" class="btn btn-outline-info"
-                                           href="{{route('std.show',['id' => $value->id])}}">詳細</a></td>
+                                           href="{{route('std.show',['id' => $value['oid']])}}">詳細</a></td>
                                 </tr>
                         @endforeach
                         </tbody>

@@ -21,26 +21,82 @@ class StdController extends Controller
 
 //        $search = $request;
 //        $sql2 = 'select * from stds,std_details where stds.stdid = std_details.stdid';
-        $sql2 = 'select stds.*,std_details.* from stds,std_details where stds.stdid = std_details.stdid';
-        if (isset($request->search2)){
-            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
+
+
+        //元クエリ
+//        $sql2 = 'select stds.*,std_details.* from stds,std_details';
+//        if (isset($request->search2)){
+//            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
+//        }
+
+
+//        $stds = DB::select($sql2);
+//        foreach ($stds as $key => $value) {
+//            if (isset($value->course)) {
+//                    if ($value->course == "0") {
+//                        $stds[$key]->course = "Scratch";
+//                    } elseif ($value->course == "1") {
+//                        $stds[$key]->course = "Unity";
+//                    } elseif ($value->course == "2") {
+//                        $stds[$key]->course = "WEB";
+//                    }
+//                }
+//        }
+
+
+
+//        $sql1 = 'select * from stds ';
+//        $stdData = DB::select($sql1);
+
+        if (isset($request)){
+            $sql1 = "select stds.* from stds,std_details where stds.stdid = std_details.stdid";
+            if (isset($request->search2)){
+                $sql1 .= " and course = '" . $request->search2 . "'";
+            }
+            if (isset($request->search3)){
+                $sql1 .= "";
+            }
+            $stdData = DB::select($sql1);
+        }else{
+            $sql1 = 'select * from stds ';
+            $stdData = DB::select($sql1);
         }
-        $stds = DB::select($sql2);
-        foreach ($stds as $key => $value) {
-            if (isset($value->course)) {
-                    if ($value->course == "0") {
-                        $stds[$key]->course = "Scratch";
-                    } elseif ($value->course == "1") {
-                        $stds[$key]->course = "Unity";
-                    } elseif ($value->course == "2") {
-                        $stds[$key]->course = "WEB";
+        $sql2 = 'select * from std_details ';
+        $stdData2 = DB::select($sql2);
+
+        $stds = [];
+        foreach ($stdData as $key => $value) {
+            $stds[$value->id]['oid'] = $value->id;
+            $stds[$value->id]['name'] = $value->name;
+            $stds[$value->id]['psw'] = $value->psw;
+            foreach ($stdData2 as $key2 => $value2) {
+                if($value->stdid == $value2->stdid) {
+                    foreach ($value2 as $key3 => $value3) {
+                        $stds[$value->id][$key3] = $value3;
+                        if ($key3 == 'course') {
+                            if ($value3 == "0") {
+                                $stds[$value->id]['course'] = "Scratch";
+                            } elseif ($value3 == "1") {
+                                $stds[$value->id]['course'] = "Unity";
+                            } elseif ($value3 == "2") {
+                                $stds[$value->id]['course'] = "WEB";
+                            }
+                        }
                     }
                 }
+            }
         }
-        echo "<pre>";
-        var_dump($stds);
-        echo "</pre>";
-        exit;
+
+
+
+//
+//        if (isset($request->search2)){
+//            $sql2 .= " and std_details.course = '" . $request->search2 . "'";
+//        }
+//        echo "<pre>";
+//        var_dump($stds);
+//        echo "</pre>";
+//        exit;
 
 
 
