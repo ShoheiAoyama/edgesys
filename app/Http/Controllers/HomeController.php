@@ -77,8 +77,6 @@ class HomeController extends Controller
                 $sexs[] = $stdDetail->sex;
             }
         }
-//        var_dump($benes);
-//        exit;
 
         //年月ごとに売上を計算
 
