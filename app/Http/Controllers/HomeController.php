@@ -51,16 +51,32 @@ class HomeController extends Controller
         $courses = [];//コース別
         $times = [];//月回数比
         $sexs = [];//男女比
+
         foreach ($stdDetails as $stdDetail) {
             if (isset($stdDetail->date)) {
-                if ($stdDetail->course == 0) {
-                    $benes[][mb_substr($stdDetail->date, 0, 7)] = 3980;
-                } elseif ($stdDetail->course == 1) {
-                    $benes[][mb_substr($stdDetail->date, 0, 7)] = 5980;
-                } elseif ($stdDetail->course == 2) {
-                    $benes[][mb_substr($stdDetail->date, 0, 7)] = 3980;
-                }
+                $y = date('Y',  strtotime($stdDetail->date));
+                $m = date('m',  strtotime($stdDetail->date));
+//                if (isset($benes[$y])){
+                    if (isset($benes[$y][$m])){
+                        if ($stdDetail->course == 0) {
+                            $benes[$y][$m] += 3980;
+                        } elseif ($stdDetail->course == 1) {
+                            $benes[$y][$m] += 5980;
+                        } elseif ($stdDetail->course == 2) {
+                            $benes[$y][$m] += 12980;
+                        }
+                    }else{
+                        if ($stdDetail->course == 0) {
+                            $benes[$y][$m] = 3980;
+                        } elseif ($stdDetail->course == 1) {
+                            $benes[$y][$m] = 5980;
+                        } elseif ($stdDetail->course == 2) {
+                            $benes[$y][$m] = 12980;
+                        }
+                    }
             }
+            
+
             if (isset($stdDetail->pref)) {
                 $locations[] = $stdDetail->pref;
             }
@@ -77,6 +93,10 @@ class HomeController extends Controller
                 $sexs[] = $stdDetail->sex;
             }
         }
+
+
+        var_dump($benes);
+        exit;
 
         //年月ごとに売上を計算
 
@@ -150,6 +170,6 @@ class HomeController extends Controller
 //        var_dump($sex);
 //        echo '</pre>';
 //        exit;
-        return view('home', compact('location', 'grds', 'course', 'time', 'sex'));
+        return view('home', compact('location', 'grds', 'course', 'time', 'sex','benes'));
     }
 }

@@ -135,6 +135,18 @@
         $earnings = [];
         $expenses = [];
         $profit = [];
+
+        $dou1 = [];
+        $dou2 = [];
+        foreach ($location as $key => $value) {
+            $dou1[] = $key;
+            $dou2[] = $value;
+        }
+
+        $json_dou1 = json_encode($dou1);
+        $json_dou2 = json_encode($dou2);
+
+
         ?>
         <script>
 
@@ -144,7 +156,7 @@
                 type: 'line',
                 data: {
                     // ※labelとデータの関係は得にありません
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                    labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
                     datasets: [{
                         label: '売上',
                         data: [5980, 5980, 9930, 15910, 15910, 15910, 15910, 15910, 15910, 15910, 15910, 15910],
@@ -228,14 +240,9 @@
             $dou1[] = $key;
             $dou2[] = $value;
         }
-//        var_dump($location);
-//        exit;
 
         $json_dou1 = json_encode($dou1);
         $json_dou2 = json_encode($dou2);
-
-//                var_dump($json_dou2);
-//                exit;
 
         ?>
         <script>
