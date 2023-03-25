@@ -57,7 +57,7 @@ class StdController extends Controller
                 }
             }
         }
-        
+
         return view('std.index', compact('stds','request'));
     }
 

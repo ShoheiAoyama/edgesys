@@ -228,6 +228,8 @@
             $dou1[] = $key;
             $dou2[] = $value;
         }
+//        var_dump($location);
+//        exit;
 
         $json_dou1 = json_encode($dou1);
         $json_dou2 = json_encode($dou2);
@@ -237,19 +239,10 @@
 
         ?>
         <script>
-
-            var js_dou1 = [];
-            var js_dou1 = [<?php echo $json_dou1; ?>];
-            var js_dou2 = [];
-            var js_dou2 = [<?php echo $json_dou2; ?>];
-
-            var data0 = [ 'apple', 'orange', 'banana'];
-            var tmpData1 = [];
-            for (var value of js_dou2){
-                tmpData1.push(value)
-            }
-            console.log(tmpData1)
-
+            // var js_dou1 = [];
+            var js_dou1 = <?php echo $json_dou1; ?>;
+            // var js_dou2 = [];
+            var js_dou2 = <?php echo $json_dou2; ?>;
 
                 window.onload = function () {
                 let context2 = document.querySelector("#location").getContext('2d')
@@ -258,10 +251,7 @@
                     data: {
                         labels: js_dou1,
                         datasets: [{
-                            // backgroundColor: ["#fa8072", "#00ff7f", "#00bfff"],
-                            data: ["2","1","1"]
-                            // data: [js_dou2[0],js_dou2[1],js_dou2[2]]
-                            // data: tmpData1,
+                            data: js_dou2,
                         }]
                     },
                     options: {

@@ -40,6 +40,11 @@ class HomeController extends Controller
 //        $stdDetails = DB::table('std_details')->pluck('pref');
         $stdDetails = DB::table('std_details')->get();
 
+//        echo "<pre>";
+//        var_dump($stdDetails);
+//        echo "</pre>";
+//        exit;
+
         $benes = [];//利益
         $locations = [];//地域別
         $grds = [];//学年別
@@ -55,15 +60,27 @@ class HomeController extends Controller
                 } elseif ($stdDetail->course == 2) {
                     $benes[][mb_substr($stdDetail->date, 0, 7)] = 3980;
                 }
+            }
+            if (isset($stdDetail->pref)) {
                 $locations[] = $stdDetail->pref;
+            }
+            if (isset($stdDetail->grd)) {
                 $grds[] = "";
+            }
+            if (isset($stdDetail->course)) {
                 $courses[] = $stdDetail->course;
+            }
+            if (isset($stdDetail->times)) {
                 $times[] = $stdDetail->times;
+            }
+            if (isset($stdDetail->sex)) {
                 $sexs[] = $stdDetail->sex;
             }
         }
-        var_dump($benes);
-        exit;
+//        var_dump($benes);
+//        exit;
+
+        //年月ごとに売上を計算
 
         //courses
         $course = [];
@@ -83,6 +100,9 @@ class HomeController extends Controller
 
         //location
         $location = [];
+//        var_dump($locations);
+//        exit;
+
         foreach ($locations as $key => $value) {
             if (!is_null($value)) {
                 if (isset($location[$prefs[$value]]) && $location[$prefs[$value]] >= 1) {
@@ -94,6 +114,7 @@ class HomeController extends Controller
         }
         arsort($location);
         //time
+
         $time = [];
         $time[0] = 0;//2回
         $time[1] = 0;//4回
