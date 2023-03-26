@@ -1,0 +1,115 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 style="text-align: center">経費管理</h2>
+                <div class="mx-auto mt-5">
+                    <div class="row justify-content-center mt-2 mb-3">
+                        <div class="col-md-2 text-center">
+                            <a href="{{route('cost.create')}}" class="btn btn-success">新規</a>
+                        </div>
+                        <div class="col-md-10 text-center">
+                            <form method="GET" action="{{route('std.index')}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-3">
+                                        項目<select name="search1">
+                                            <option value="0" <?php if (!isset($grd)) {
+                                                echo "selected";
+                                            } ?>>全て
+                                            </option>
+                                            <option value="1">集客</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        小項目<select name="search2">
+                                            <option value="" <?php if (!isset($item)) {
+                                                echo "selected";
+                                            } ?>>全て
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-4">
+                                        期間<select name="search3">
+                                            <option value="0" <?php if (!isset($time)) {
+                                                echo "selected";
+                                            } ?>>---
+                                            </option>
+                                            @for($i=date('Y');$i<=2022;$i--)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>年
+
+                                        <select name="search4">
+                                            <option value="0" <?php if (!isset($time)) {
+                                                echo "selected";
+                                            } ?>>---
+                                            </option>
+                                            @for($i=1;$i<13;$i++)
+                                                <option value="{{$i}}">{{$i}}</option>
+                                            @endfor
+                                        </select>月
+
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-warning" type="">検索</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr style="text-align: center;">
+                        <th scope="col">日付</th>
+                        <th scope="col">ジャンル</th>
+                        <th scope="col">項目</th>
+                        <th scope="col">内容</th>
+                        <th scope="col">金額</th>
+                        <th scope="col">詳細</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td scope="col">2023-03-26</td>
+                        <td scope="col">集客</td>
+                        <td scope="col">コエテコ</td>
+                        <td scope="col">コエテコ3月分経費</td>
+                        <td scope="col">75,200</td>
+                        <td scope="col"><a href="">詳細</a></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">2023-03-28</td>
+                        <td scope="col">集客</td>
+                        <td scope="col">Google 広告</td>
+                        <td scope="col">Google 3月分広告</td>
+                        <td scope="col">5,440</td>
+                        <td scope="col"><a href="">詳細</a></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">2023-03-30</td>
+                        <td scope="col">備品</td>
+                        <td scope="col">文具</td>
+                        <td scope="col">クリアファイル</td>
+                        <td scope="col">1,200</td>
+                        <td scope="col"><a href="">詳細</a></td>
+                    </tr>
+                    <tr>
+                        <td scope="col">2023-03-30</td>
+                        <td scope="col">会議</td>
+                        <td scope="col">打ち合わせ</td>
+                        <td scope="col">スターバックス</td>
+                        <td scope="col">560</td>
+                        <td scope="col"><a href="">詳細</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+@endsection

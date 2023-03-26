@@ -39,3 +39,10 @@ Route::group(['prefix' => 'std', 'middleware' => 'auth'], function () {
     Route::get('contact','StdController@contact')->name('std.contact');
 });
 
+Route::group(['prefix' => 'cost', 'middleware' => 'auth'], function () {
+    Route::get('/', 'CostController@index')->name('cost.index');
+    Route::get('index', 'CostController@index')->name('cost.index');
+    Route::get('create', 'CostController@create')->name('cost.create');
+    Route::post('store', 'CostController@store')->name('cost.store');
+});
+

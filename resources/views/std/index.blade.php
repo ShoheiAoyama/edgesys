@@ -22,10 +22,6 @@
                     </div>
                 </div>
                 <div class="table-center">
-<?php
-//                    echo $request->search2;
-//exit;
-//?>
                     <div class="mx-auto">
                         <div class="row justify-content-center mt-2 mb-3">
                             <div class="col-md-2 text-center">

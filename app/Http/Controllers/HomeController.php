@@ -34,18 +34,10 @@ class HomeController extends Controller
             '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'
         ];
 
-        $earnings = [];
-        $expenses = [];
-        $profit = [];
-//        $stdDetails = DB::table('std_details')->pluck('pref');
         $stdDetails = DB::table('std_details')->get();
 
-//        echo "<pre>";
-//        var_dump($stdDetails);
-//        echo "</pre>";
-//        exit;
-
         $benes = [];//利益
+        $b_sum = 0;//利益
         $locations = [];//地域別
         $grds = [];//学年別
         $courses = [];//コース別
@@ -56,26 +48,30 @@ class HomeController extends Controller
             if (isset($stdDetail->date)) {
                 $y = date('Y',  strtotime($stdDetail->date));
                 $m = date('m',  strtotime($stdDetail->date));
-//                if (isset($benes[$y])){
                     if (isset($benes[$y][$m])){
                         if ($stdDetail->course == 0) {
                             $benes[$y][$m] += 3980;
+                            $b_sum += 3980;
                         } elseif ($stdDetail->course == 1) {
                             $benes[$y][$m] += 5980;
+                            $b_sum += 5980;
                         } elseif ($stdDetail->course == 2) {
                             $benes[$y][$m] += 12980;
+                            $b_sum += 12980;
                         }
                     }else{
                         if ($stdDetail->course == 0) {
                             $benes[$y][$m] = 3980;
+                            $b_sum += 3980;
                         } elseif ($stdDetail->course == 1) {
                             $benes[$y][$m] = 5980;
+                            $b_sum += 5980;
                         } elseif ($stdDetail->course == 2) {
                             $benes[$y][$m] = 12980;
+                            $b_sum += 12980;
                         }
                     }
             }
-            
 
             if (isset($stdDetail->pref)) {
                 $locations[] = $stdDetail->pref;
@@ -94,9 +90,20 @@ class HomeController extends Controller
             }
         }
 
+        //当月の売上を計算
+        if (isset($benes[date('Y')][date('m')])){
+            $cm = number_format($benes[date('Y')][date('m')]);
+        }else{
+            $cm = 0;
+        }
 
-        var_dump($benes);
-        exit;
+        //合計
+        $b_sum = number_format($b_sum);
+
+
+//        var_dump($benes);
+//        echo $b_sum;
+//        exit;
 
         //年月ごとに売上を計算
 
@@ -118,8 +125,6 @@ class HomeController extends Controller
 
         //location
         $location = [];
-//        var_dump($locations);
-//        exit;
 
         foreach ($locations as $key => $value) {
             if (!is_null($value)) {
@@ -131,8 +136,8 @@ class HomeController extends Controller
             }
         }
         arsort($location);
-        //time
 
+        //time
         $time = [];
         $time[0] = 0;//2回
         $time[1] = 0;//4回
@@ -170,6 +175,6 @@ class HomeController extends Controller
 //        var_dump($sex);
 //        echo '</pre>';
 //        exit;
-        return view('home', compact('location', 'grds', 'course', 'time', 'sex','benes'));
+        return view('home', compact('location', 'grds', 'course', 'time', 'sex','benes','cm','b_sum'));
     }
 }

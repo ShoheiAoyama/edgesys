@@ -15,7 +15,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: center">総利益</h5>
-                                    <p style="font-size:30px;text-align: center;color: #1d68a7">3</p>
+                                    <p style="font-size:30px;text-align: center;color: #1d68a7">{{ $b_sum }}</p>
                                     <a href="#" class="card-link" style="text-align: right">Detail</a>
                                 </div>
                             </div>
@@ -24,7 +24,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title" style="text-align: center">売上/月</h5>
-                                    <p style="font-size:30px;text-align: center;color: #1d68a7">3</p>
+                                    <p style="font-size:30px;text-align: center;color: #1d68a7">{{ $cm }}</p>
                                     <a href="#" class="card-link" style="text-align: right">Detail</a>
                                 </div>
                             </div>
