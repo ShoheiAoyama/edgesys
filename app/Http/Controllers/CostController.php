@@ -18,10 +18,33 @@ class CostController extends Controller
     {
         //
         $costs = Cost::all();
-        var_dump($costs);
-        exit;
-
-        return view('cost.index');
+        $genres = [
+            'a' => "教材",
+            'b' => "備品",
+            'c' => "交際",
+            'd' => "会議",
+            'e' => "交通",
+            'f' => "広告",
+            'g' => "システム",
+            'h' => "その他"
+        ];
+        $items = [
+            'a1' => "アポロン",
+            'b1' => "事務用品",
+            'c1' => "交際費",
+            'd1' => "場所代",
+            'e1' => "JR",
+            'e2' => "地下鉄",
+            'e3' => "新幹線",
+            'e4' => "タクシー",
+            'f1' => "チラシ",
+            'f2' => "Google広告",
+            'f3' => "Instagram広告",
+            'f4' => "コエテコ",
+            'g1' => "サーバー",
+            'h2' => "その他"
+        ];
+        return view('cost.index',compact('costs','items','genres'));
     }
 
     /**

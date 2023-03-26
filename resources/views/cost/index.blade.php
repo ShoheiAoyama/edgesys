@@ -74,38 +74,27 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td scope="col">2023-03-26</td>
-                        <td scope="col">集客</td>
-                        <td scope="col">コエテコ</td>
-                        <td scope="col">コエテコ3月分経費</td>
-                        <td scope="col">75,200</td>
-                        <td scope="col"><a href="">詳細</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="col">2023-03-28</td>
-                        <td scope="col">集客</td>
-                        <td scope="col">Google 広告</td>
-                        <td scope="col">Google 3月分広告</td>
-                        <td scope="col">5,440</td>
-                        <td scope="col"><a href="">詳細</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="col">2023-03-30</td>
-                        <td scope="col">備品</td>
-                        <td scope="col">文具</td>
-                        <td scope="col">クリアファイル</td>
-                        <td scope="col">1,200</td>
-                        <td scope="col"><a href="">詳細</a></td>
-                    </tr>
-                    <tr>
-                        <td scope="col">2023-03-30</td>
-                        <td scope="col">会議</td>
-                        <td scope="col">打ち合わせ</td>
-                        <td scope="col">スターバックス</td>
-                        <td scope="col">560</td>
-                        <td scope="col"><a href="">詳細</a></td>
-                    </tr>
+                    @foreach($costs as $cost)
+                        <tr>
+                            <td scope="col">{{$cost->cdate}}</td>
+                            <td scope="col">
+                                @foreach($genres as $key => $value)
+                                    @if(false !== strstr($cost->item1, $key))
+                                        {{$value}}
+                                    @endif
+                                @endforeach
+                                </td>
+                            <td scope="col">
+                                @foreach($items as $key => $value)
+                                    @if($cost->item1 == $key)
+                                        {{$value}}
+                                    @endif
+                                @endforeach</td>
+                            <td scope="col">{{$cost->del}}</td>
+                            <td scope="col">{{$cost->fee}}</td>
+                            <td scope="col"><a href="">詳細</a></td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
 
