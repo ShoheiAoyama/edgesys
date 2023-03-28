@@ -28,6 +28,7 @@ class CostController extends Controller
             'g' => "システム",
             'h' => "その他"
         ];
+        
         $items = [
             'a1' => "アポロン",
             'b1' => "事務用品",
