@@ -64,7 +64,7 @@
                                 <a class="nav-link" href="{{ route('std.index') }}">マーケ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('std.index') }}">売上管理</a>
+                                <a class="nav-link" href="{{ route('cost.index') }}">経費管理</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
