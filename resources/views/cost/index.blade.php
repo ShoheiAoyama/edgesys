@@ -92,12 +92,11 @@
                                 @endforeach</td>
                             <td scope="col">{{$cost->del}}</td>
                             <td scope="col"><?php echo number_format($cost->fee); ?></td>
-                            <td scope="col"><a href="">詳細</a></td>
+                            <td scope="col"><a href="{{route('cost.show',['id' => $cost->id])}}">詳細</a></td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>

@@ -108,6 +108,8 @@ class CostController extends Controller
     public function show($id)
     {
         //
+        $costLists = Cost::find($id);
+        return view('cost.show',compact('costLists'));
     }
 
     /**
