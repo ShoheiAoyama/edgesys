@@ -121,6 +121,9 @@ class CostController extends Controller
     public function edit($id)
     {
         //
+        $costList = Cost::find($id);
+
+        return view('cost.edit',compact('costList'));
     }
 
     /**

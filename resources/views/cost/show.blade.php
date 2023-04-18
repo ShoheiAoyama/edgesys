@@ -15,10 +15,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($costLists as $costList)
                             <tr>
                                 <th scope="col">日付</th>
-                                <th scope="col">{{$costList['cdate']}}</th>
+                                <th scope="col">{{$costLists->cdate}}</th>
                             </tr>
                             <tr>
                                 <th scope="col">ジャンル</th>
@@ -26,27 +25,26 @@
                             </tr>
                             <tr>
                                 <th scope="col">項目</th>
-                                <th scope="col">{{$costList['item1']}}</th>
+                                <th scope="col">{{$costLists->item1}}</th>
                             </tr>
                             <tr>
                                 <th scope="col">内容</th>
-                                <th scope="col">{{$costList['del']}}</th>
+                                <th scope="col">{{$costLists->del}}</th>
                             </tr>
                             <tr>
                             <th scope="col">金額</th>
-                            <th scope="col">{{$costList['fee']}}</th>
+                            <th scope="col">{{$costLists->fee}}</th>
                             </tr>
                             <tr>
                                 <th scope="col">金額</th>
-                                <th scope="col">{{$costList['staff']}}</th>
+                                <th scope="col">{{$costLists->staff}}</th>
                             </tr>
-                            @endforeach
                             </tbody>
                         </table>
                     </div>
                     <div class="row text-center justify-content-md-center mb-3">
                         <div class="col-3">
-                            <form method="GET" action="{{route('cost.edit', ['id' => $std->id])}}">
+                            <form method="GET" action="{{route('cost.edit', ['id' => $costLists->id])}}">
                                 @csrf
                                 {{--                    <div style="display: block;text-align: right">--}}
                                 <input class="btn btn-success" type="submit" value="変更">
@@ -54,10 +52,10 @@
                             </form>
                         </div>
                         <div class="col-3">
-                            <form method="POST" action="{{route('cost.destroy',['id' => $std->id])}}"
-                                  id="delete_{{$std->id}}">
+                            <form method="POST" action="{{route('cost.destroy',['id' => $costLists->id])}}"
+                                  id="delete_{{$costLists->id}}">
                                 @csrf
-                                <a href="#" class="btn btn-danger" data-id="{{$std->id}}"
+                                <a href="#" class="btn btn-danger" data-id="{{$costLists->id}}"
                                    onclick="deletePost(this)">削除</a>
                             </form>
                         </div>

@@ -45,5 +45,7 @@ Route::group(['prefix' => 'cost', 'middleware' => 'auth'], function () {
     Route::get('create', 'CostController@create')->name('cost.create');
     Route::post('store', 'CostController@store')->name('cost.store');
     Route::get('show/{id}', 'CostController@show')->name('cost.show');
+    Route::get('edit/{id}', 'CostController@edit')->name('cost.edit');
+    Route::get('destroy/{id}', 'CostController@destroy')->name('cost.destroy');
 });
 
